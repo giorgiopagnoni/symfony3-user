@@ -1,0 +1,9 @@
+{% extends 'UserBundle:email:email-layout.html.twig' %}
+
+{% block body_text %}
+    Click here to activate your account: {{ activationUrl }}
+{% endblock %}
+
+{% block body_html_content %}
+    Click <a href="{{ activationUrl }}" target="_blank">here</a> to activate your account
+{% endblock %}

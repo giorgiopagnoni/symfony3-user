@@ -1,0 +1,8 @@
+user:
+  email: Email
+  password:
+    first: Password
+    second: Repeat password
+
+captcha: Captcha
+rememberme: Remember me

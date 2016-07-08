@@ -1,0 +1,19 @@
+services:
+    user.security.login_form_authenticator:
+        class: UserBundle\Security\LoginFormAuthenticator
+        autowire: true
+
+    user.doctrine.hash_password_listener:
+        class: UserBundle\Doctrine\HashPasswordListener
+        autowire: true
+        tags:
+            - { name: doctrine.event_subscriber }
+
+    user.token_generator:
+        class: UserBundle\Service\TokenGenerator
+        autowire: true
+
+    user.mailer:
+        class: UserBundle\Service\Mailer
+        autowire: true
+        arguments: ['@swiftmailer.mailer', '@router', '@twig', '@monolog.logger', '%mailer_noreply%']

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Edit!</h1>
+                {{ form_start(form) }}
+
+                <div class="form-group">
+                    <label class="control-label">* E-mail</label>
+                    <p class="form-control-static">{{ app.user.email }}</p>
+                </div>
+
+                {{ include('UserBundle::_editform.html.twig') }}
+
+                <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
