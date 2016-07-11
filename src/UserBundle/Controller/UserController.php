@@ -125,7 +125,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $form = $this->createForm(RequestPasswordType::class, $this->getUser());
+        $form = $this->createForm(RequestPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -162,16 +162,14 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $form = $this->createForm(ResetPasswordType::class, $this->getUser());
+        $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             /** @var User $formUser */
-            $formUser = $form->getData();
-
+            $user = $form->getData();
             $user->setToken(null);
             $user->setPasswordRequestedAt(null);
-            $user->setPlainPassword($formUser->getPlainPassword());
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);
@@ -179,6 +177,7 @@ class UserController extends Controller
 
             $this->addFlash('success', 'Your password has been reset!');
 
+            // automatic login
             return $this->get('security.authentication.guard_handler')
                 ->authenticateUserAndHandleSuccess(
                     $user,
