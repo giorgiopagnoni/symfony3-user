@@ -15,8 +15,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Mailer
 {
-    const FROM_EMAIL = 'noreply@giorgiopagnoni.it';
-    
     protected $mailer;
     protected $router;
     protected $twig;
@@ -59,14 +57,14 @@ class Mailer
 
     public function sendResetPasswordEmailMessage(User $user)
     {
-        $url = $this->router->generate('user.reset-password', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->router->generate('user_reset_password', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $context = [
             'user' => $user,
-            'resetUrl' => $url,
+            'resetPasswordUrl' => $url,
         ];
 
-        $this->sendMessage($template, $context, $this->parameters['from_email'], $user->getEmail());
+        $this->sendMessage('UserBundle:email:request-password.html.twig', $context, $this->noreply, $user->getEmail());
     }
 
     /**

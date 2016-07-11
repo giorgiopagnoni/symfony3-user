@@ -45,7 +45,7 @@ class User implements AdvancedUserInterface
     /**
      * A non-persisted field that's used to create the encoded password.
      *
-     * @Assert\NotBlank(groups={"Registration"})
+     * @Assert\NotBlank(groups={"Registration", "PasswordReset"})
      * @Assert\Length(min=5)
      */
     private $plainPassword;
@@ -72,15 +72,20 @@ class User implements AdvancedUserInterface
     private $createdAt;
 
     /**
+     * @Gedmo\Timestampable(on="update")
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $activatedAt;
 
     /**
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $updatedAt;
+    private $passwordRequestedAt;
 
     // needed by the security system
     public function getUsername()
@@ -185,6 +190,22 @@ class User implements AdvancedUserInterface
     public function setActivatedAt($activatedAt)
     {
         $this->activatedAt = $activatedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPasswordRequestedAt()
+    {
+        return $this->passwordRequestedAt;
+    }
+
+    /**
+     * @param mixed $passwordRequestedAt
+     */
+    public function setPasswordRequestedAt($passwordRequestedAt)
+    {
+        $this->passwordRequestedAt = $passwordRequestedAt;
     }
 
     /**

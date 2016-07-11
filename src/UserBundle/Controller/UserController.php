@@ -5,6 +5,8 @@ namespace UserBundle\Controller;
 use UserBundle\Entity\User;
 use UserBundle\Form\EditType;
 use UserBundle\Form\RegistrationType;
+use UserBundle\Form\RequestPasswordType;
+use UserBundle\Form\ResetPasswordType;
 use UserBundle\Form\UserEditForm;
 use UserBundle\Form\UserRegistrationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -57,7 +59,6 @@ class UserController extends Controller
     public function editAction(Request $request)
     {
         $form = $this->createForm(EditType::class, $this->getUser());
-
         $form->handleRequest($request);
         if ($form->isValid()) {
             /** @var User $user */
@@ -113,5 +114,81 @@ class UserController extends Controller
                 $this->get('user.security.login_form_authenticator'),
                 'main'
             );
+    }
+
+    /**
+     * @Route("/request-password-reset", name="user_request_password_reset")
+     */
+    public function requestPasswordResetAction(Request $request)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        $form = $this->createForm(RequestPasswordType::class, $this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $repository = $this->getDoctrine()->getRepository(User::class);
+            /** @var User $user */
+            $user = $repository->findOneBy(['email' => $form->getData()['_username'], 'isActive' => true]);
+            if ($user) {
+                $token = $this->get('user.token_generator')->generateToken();
+                $user->setToken($token);
+                $user->setPasswordRequestedAt(new \DateTime());
+                $em = $this->getDoctrine()->getEntityManager();
+                $em->persist($user);
+                $em->flush();
+            }
+
+            $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
+
+            $this->addFlash('success', 'Check your email!');
+            return $this->redirect($this->generateUrl('homepage'));
+            //return $this->redirect($this->generateUrl('user_request_password_reset_done'));
+        }
+
+        return $this->render('UserBundle::request-password-reset.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @Route("/reset-password/{token}", name="user_reset_password")
+     */
+    public function resetPasswordAction(Request $request, User $user)
+    {
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('homepage'));
+        }
+
+        $form = $this->createForm(ResetPasswordType::class, $this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            /** @var User $formUser */
+            $formUser = $form->getData();
+
+            $user->setToken(null);
+            $user->setPasswordRequestedAt(null);
+            $user->setPlainPassword($formUser->getPlainPassword());
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Your password has been reset!');
+
+            return $this->get('security.authentication.guard_handler')
+                ->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->get('user.security.login_form_authenticator'),
+                    'main'
+                );
+
+        }
+
+        return $this->render('UserBundle::password-reset.html.twig', ['form' => $form->createView()]);
     }
 }
