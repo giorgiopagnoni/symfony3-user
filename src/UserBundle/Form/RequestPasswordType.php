@@ -19,9 +19,4 @@ class RequestPasswordType extends AbstractType
                 'label' => 'captcha'
             ]);
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-
-    }
 }

@@ -3,6 +3,11 @@ user:
   password:
     first: Password
     second: Repeat password
+  update:
+    success: Your account has been successfully updated.
+  welcome: Welcome! You have been successfully logged in.
+  mailer:
+    request-password: A link to reset your password has been sent to your inbox. Check it out!
 
 captcha: Captcha
 rememberme: Remember me

@@ -25,9 +25,4 @@ class LoginType extends AbstractType
                 'required' => false
             ]);
     }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-
-    }
 }

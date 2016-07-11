@@ -7,8 +7,6 @@ use UserBundle\Form\EditType;
 use UserBundle\Form\RegistrationType;
 use UserBundle\Form\RequestPasswordType;
 use UserBundle\Form\ResetPasswordType;
-use UserBundle\Form\UserEditForm;
-use UserBundle\Form\UserRegistrationForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -67,7 +65,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Updated ' . $user->getEmail());
+            $this->addFlash('success', $this->get('translator')->trans('user.update.success'));
 
             return $this->redirect($this->generateUrl('homepage'));
         }
@@ -104,7 +102,7 @@ class UserController extends Controller
 
         // TODO: is sending an email here really necessary...
 
-        $this->addFlash('success', 'Welcome!');
+        $this->addFlash('success', 'user.welcome');
 
         // automatic login
         return $this->get('security.authentication.guard_handler')
@@ -138,11 +136,11 @@ class UserController extends Controller
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($user);
                 $em->flush();
+
+                $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
             }
 
-            $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
-
-            $this->addFlash('success', 'A link has been sent to your inbox!');
+            $this->addFlash('success', $this->get('translator')->trans('user.mailer.request-password'));
             return $this->redirect($this->generateUrl('homepage'));
         }
 
@@ -172,7 +170,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Your password has been reset!');
+            $this->addFlash('success', $this->get('translator')->trans('user.update.success'));
 
             // automatic login
             return $this->get('security.authentication.guard_handler')
