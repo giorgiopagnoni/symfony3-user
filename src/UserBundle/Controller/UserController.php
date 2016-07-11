@@ -135,7 +135,6 @@ class UserController extends Controller
             if ($user) {
                 $token = $this->get('user.token_generator')->generateToken();
                 $user->setToken($token);
-                $user->setPasswordRequestedAt(new \DateTime());
                 $em = $this->getDoctrine()->getEntityManager();
                 $em->persist($user);
                 $em->flush();
@@ -143,9 +142,8 @@ class UserController extends Controller
 
             $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
 
-            $this->addFlash('success', 'Check your email!');
+            $this->addFlash('success', 'A link has been sent to your inbox!');
             return $this->redirect($this->generateUrl('homepage'));
-            //return $this->redirect($this->generateUrl('user_request_password_reset_done'));
         }
 
         return $this->render('UserBundle::request-password-reset.html.twig', [
@@ -169,7 +167,6 @@ class UserController extends Controller
             /** @var User $formUser */
             $user = $form->getData();
             $user->setToken(null);
-            $user->setPasswordRequestedAt(null);
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->persist($user);

@@ -82,11 +82,6 @@ class User implements AdvancedUserInterface
      */
     private $activatedAt;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $passwordRequestedAt;
-
     // needed by the security system
     public function getUsername()
     {
@@ -190,22 +185,6 @@ class User implements AdvancedUserInterface
     public function setActivatedAt($activatedAt)
     {
         $this->activatedAt = $activatedAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getPasswordRequestedAt()
-    {
-        return $this->passwordRequestedAt;
-    }
-
-    /**
-     * @param mixed $passwordRequestedAt
-     */
-    public function setPasswordRequestedAt($passwordRequestedAt)
-    {
-        $this->passwordRequestedAt = $passwordRequestedAt;
     }
 
     /**
