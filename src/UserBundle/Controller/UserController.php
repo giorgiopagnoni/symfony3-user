@@ -43,7 +43,9 @@ class UserController extends Controller
 
             $this->get('user.mailer')->sendActivationEmailMessage($user);
 
-            return $this->redirect($this->generateUrl('user_register_done'));
+            $this->addFlash('success', $this->get('translator')->trans('user.activation-link'));
+            return $this->redirect($this->generateUrl('homepage'));
+//            return $this->redirect($this->generateUrl('user_register_done'));
         }
 
         return $this->render('UserBundle::register.html.twig', [
@@ -78,17 +80,17 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/register-done", name="user_register_done")
-     */
-    public function registerDoneAction()
-    {
-        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('homepage'));
-        }
-
-        return $this->render('UserBundle::register-done.html.twig');
-    }
+//    /**
+//     * @Route("/register-done", name="user_register_done")
+//     */
+//    public function registerDoneAction()
+//    {
+//        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+//            return $this->redirect($this->generateUrl('homepage'));
+//        }
+//
+//        return $this->render('UserBundle::register-done.html.twig');
+//    }
 
     /**
      * @Route("/activate/{token}", name="user_activate")
@@ -144,7 +146,7 @@ class UserController extends Controller
                 $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
             }
 
-            $this->addFlash('success', $this->get('translator')->trans('user.request-password'));
+            $this->addFlash('success', $this->get('translator')->trans('user.request-password-link'));
             return $this->redirect($this->generateUrl('homepage'));
         }
 
