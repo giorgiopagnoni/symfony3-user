@@ -30,12 +30,13 @@ class UserController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-
             $token = $this->get('user.token_generator')->generateToken();
+
             /** @var User $user */
             $user = $form->getData();
             $user->setToken($token);
             $user->setIsActive(false);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
@@ -57,10 +58,12 @@ class UserController extends Controller
     public function editAction(Request $request)
     {
         $form = $this->createForm(EditType::class, $this->getUser());
+
         $form->handleRequest($request);
         if ($form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
