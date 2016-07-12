@@ -105,7 +105,7 @@ class UserController extends Controller
 
         // TODO: is sending an email here really necessary...
 
-        $this->addFlash('success', 'user.welcome');
+        $this->addFlash('success', $this->get('translator')->trans('user.welcome'));
 
         // automatic login
         return $this->get('security.authentication.guard_handler')
@@ -133,6 +133,7 @@ class UserController extends Controller
             $repository = $this->getDoctrine()->getRepository(User::class);
             /** @var User $user */
             $user = $repository->findOneBy(['email' => $form->getData()['_username'], 'isActive' => true]);
+
             if ($user) {
                 $token = $this->get('user.token_generator')->generateToken();
                 $user->setToken($token);
@@ -143,7 +144,7 @@ class UserController extends Controller
                 $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
             }
 
-            $this->addFlash('success', $this->get('translator')->trans('user.mailer.request-password'));
+            $this->addFlash('success', $this->get('translator')->trans('user.request-password'));
             return $this->redirect($this->generateUrl('homepage'));
         }
 

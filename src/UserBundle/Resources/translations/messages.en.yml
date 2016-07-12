@@ -6,8 +6,12 @@ user:
   update:
     success: Your account has been successfully updated.
   welcome: Welcome! You have been successfully logged in.
+  request-password: A link to reset your password has been sent to your inbox. Check it out!
   mailer:
-    request-password: A link to reset your password has been sent to your inbox. Check it out!
+    activation.html: Click <a href="%activationUrl%" target="_blank">here</a> to activate your account
+    activation.txt: Click on the following link to activate your account %activationUrl%
+    reset-password.html: Click <a href="%resetPasswordUrl%" target="_blank">here</a> to reset your password
+    reset-password.txt: Click on the following link to reset your password %resetPasswordUrl%
 
 captcha: Captcha
 rememberme: Remember me
