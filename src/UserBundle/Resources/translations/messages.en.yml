@@ -3,9 +3,17 @@ user:
   password:
     first: Password
     second: Repeat password
+
+  edit: Edit
+  login: Login
+  logout: Logout
+  sign-up: Sign up
+  no-account: I don't have an account
+  yes-account: I already have an account
+  forgot-password: I forgot my password
   welcome: Welcome! You have been successfully logged in.
-  update:
-    success: Your account has been successfully updated.
+  update.success: Your account has been successfully updated.
+
   activation-link: A link to activate your account has been sent to your inbox. Check it out!
   request-password-link: A link to reset your password has been sent to your inbox. Check it out!
   mailer:

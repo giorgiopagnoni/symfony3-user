@@ -80,18 +80,6 @@ class UserController extends Controller
         ]);
     }
 
-//    /**
-//     * @Route("/register-done", name="user_register_done")
-//     */
-//    public function registerDoneAction()
-//    {
-//        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-//            return $this->redirect($this->generateUrl('homepage'));
-//        }
-//
-//        return $this->render('UserBundle::register-done.html.twig');
-//    }
-
     /**
      * @Route("/activate/{token}", name="user_activate")
      */
@@ -139,7 +127,7 @@ class UserController extends Controller
             if ($user) {
                 $token = $this->get('user.token_generator')->generateToken();
                 $user->setToken($token);
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($user);
                 $em->flush();
 
@@ -172,7 +160,7 @@ class UserController extends Controller
             $user = $form->getData();
             $user->setToken(null);
 
-            $em = $this->getDoctrine()->getEntityManager();
+            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 

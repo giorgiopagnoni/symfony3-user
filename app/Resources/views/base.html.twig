@@ -9,10 +9,42 @@
         {#<link rel="stylesheet" href="{{ asset('css/styles.css') }}">#}
         <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-<div class="main-content">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"></a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            {% block nav %}
+                <ul class="nav navbar-nav">
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('user_edit') }}">{{ app.user.email }}</a></li>
+                        <li><a href="{{ path('security_logout') }}">{{ 'user.logout'|trans }}</a></li>
+                    {% else %}
+                        <li><a href="{{ path('user_register') }}">{{ 'user.sign-up'|trans }}</a></li>
+                        <li><a href="{{ path('security_login') }}">{{ 'user.login'|trans }}</a></li>
+                    {% endif %}
+                </ul>
+            {% endblock %}
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="main-content" style="margin-top: 50px;">
     {% for msg in app.session.flashBag.get('success') %}
         <div class="alert alert-success">
             {{ msg }}

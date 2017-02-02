@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Login!</h1>
+                <h1>{{ 'user.login'|trans }}</h1>
                 {% if error %}
                     <div class="alert alert-danger">
                         {{ error.messageKey|trans(error.messageData, 'security') }}
@@ -14,8 +14,9 @@
                     {{ form_row(form._username) }}
                     {{ form_row(form._password) }}
                     {{ form_row(form.remember_me) }}
-                    <button type="submit" class="btn btn-success">Login <span class="fa fa-lock"></span></button>
-                    <a href="{{ path('user_register') }}">I don't have an account</a>
+                    <button type="submit" class="btn btn-success">{{ 'user.login'|trans }} <span class="fa fa-lock"></span></button>
+                    <a href="{{ path('user_register') }}">{{ 'user.no-account'|trans }}</a> |
+                    <a href="{{ path('user_request_password_reset') }}">{{ 'user.forgot-password'|trans }}</a>
                 {{ form_end(form) }}
 
             </div>
