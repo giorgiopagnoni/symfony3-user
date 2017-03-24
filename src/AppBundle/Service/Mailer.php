@@ -6,9 +6,9 @@
  * Time: 14:24
  */
 
-namespace UserBundle\Service;
+namespace AppBundle\Service;
 
-use UserBundle\Entity\User;
+use AppBundle\Entity\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -39,7 +39,7 @@ class Mailer
             'activationUrl' => $url
         ];
 
-        $this->sendMessage('UserBundle:email:register-done.html.twig', $context, $this->noreply, $user->getEmail());
+        $this->sendMessage('user/email/register-done.html.twig', $context, $this->noreply, $user->getEmail());
     }
 
 //    public function sendActivationDoneEmailMessage(User $user)
@@ -64,7 +64,7 @@ class Mailer
             'resetPasswordUrl' => $url,
         ];
 
-        $this->sendMessage('UserBundle:email:request-password.html.twig', $context, $this->noreply, $user->getEmail());
+        $this->sendMessage('user/email/request-password.html.twig', $context, $this->noreply, $user->getEmail());
     }
 
     /**

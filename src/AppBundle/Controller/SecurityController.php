@@ -6,9 +6,9 @@
  * Time: 12:47
  */
 
-namespace UserBundle\Controller;
+namespace AppBundle\Controller;
 
-use UserBundle\Form\LoginType;
+use AppBundle\Form\LoginType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -35,7 +35,7 @@ class SecurityController extends Controller
         ]);
 
         return $this->render(
-            'UserBundle:security:login.html.twig', [
+            'user/security/login.html.twig', [
                 'form' => $form->createView(),
                 'error' => $error,
             ]

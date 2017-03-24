@@ -6,11 +6,11 @@
  * Time: 12:58
  */
 
-namespace UserBundle\Security;
+namespace AppBundle\Security;
 
 
-use UserBundle\Entity\User;
-use UserBundle\Form\LoginType;
+use AppBundle\Entity\User;
+use AppBundle\Form\LoginType;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

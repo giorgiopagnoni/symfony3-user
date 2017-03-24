@@ -2,12 +2,12 @@
 # http://symfony.com/doc/current/book/security.html
 security:
     encoders:
-        UserBundle\Entity\User: bcrypt
+        AppBundle\Entity\User: bcrypt
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         our_users:
-            entity: { class: UserBundle\Entity\User, property: email }
+            entity: { class: AppBundle\Entity\User, property: email }
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs

@@ -1,8 +1,8 @@
 <?php
 
-namespace UserBundle\Doctrine;
+namespace AppBundle\Doctrine;
 
-use UserBundle\Entity\User;
+use AppBundle\Entity\User;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;

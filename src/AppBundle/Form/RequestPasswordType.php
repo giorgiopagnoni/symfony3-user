@@ -1,6 +1,6 @@
 <?php
 
-namespace UserBundle\Form;
+namespace AppBundle\Form;
 
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\AbstractType;

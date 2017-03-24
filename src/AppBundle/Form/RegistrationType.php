@@ -1,8 +1,8 @@
 <?php
 
-namespace UserBundle\Form;
+namespace AppBundle\Form;
 
-use UserBundle\Entity\User;
+use AppBundle\Entity\User;
 use Gregwar\CaptchaBundle\Type\CaptchaType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;

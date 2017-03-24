@@ -6,7 +6,7 @@
  * Time: 14:24
  */
 
-namespace UserBundle\Service;
+namespace AppBundle\Service;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;

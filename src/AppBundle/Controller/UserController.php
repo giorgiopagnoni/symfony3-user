@@ -1,12 +1,12 @@
 <?php
 
-namespace UserBundle\Controller;
+namespace AppBundle\Controller;
 
-use UserBundle\Entity\User;
-use UserBundle\Form\EditType;
-use UserBundle\Form\RegistrationType;
-use UserBundle\Form\RequestPasswordType;
-use UserBundle\Form\ResetPasswordType;
+use AppBundle\Entity\User;
+use AppBundle\Form\EditType;
+use AppBundle\Form\RegistrationType;
+use AppBundle\Form\RequestPasswordType;
+use AppBundle\Form\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class UserController extends Controller
 //            return $this->redirect($this->generateUrl('user_register_done'));
         }
 
-        return $this->render('UserBundle::register.html.twig', [
+        return $this->render('user/register.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -75,7 +75,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        return $this->render('UserBundle::edit.html.twig', [
+        return $this->render('user/edit.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -138,7 +138,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        return $this->render('UserBundle::request-password-reset.html.twig', [
+        return $this->render('user/request-password-reset.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -177,6 +177,6 @@ class UserController extends Controller
 
         }
 
-        return $this->render('UserBundle::password-reset.html.twig', ['form' => $form->createView()]);
+        return $this->render('user/password-reset.html.twig', ['form' => $form->createView()]);
     }
 }
