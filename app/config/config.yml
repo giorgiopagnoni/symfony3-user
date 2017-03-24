@@ -71,12 +71,14 @@ swiftmailer:
     port:      "%mailer_port%"
     spool:     { type: memory }
 
+# Doctrine slugs & timestamps
 stof_doctrine_extensions:
     orm:
         default:
             sluggable: true
             timestampable: true
 
+# Gregtwar captcha
 gregwar_captcha:
     background_color: [255, 255, 255]
     distortion: false
@@ -84,3 +86,13 @@ gregwar_captcha:
     height: 60
     reload: true
     as_url: true
+
+# Assetic
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        scssphp:
+            formatter: 'Leafo\ScssPhp\Formatter\Compressed'
+        cssrewrite: ~
+        jsqueeze: ~

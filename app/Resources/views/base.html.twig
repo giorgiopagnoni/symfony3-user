@@ -5,11 +5,16 @@
     <title>{% block title %}{% endblock %}</title>
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
-        {#<link rel="stylesheet" href="{{ asset('css/styles.css') }}">#}
-        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+        {% stylesheets filter="scssphp" output="css/app.css"
+            'vendor/bootstrap/css/bootstrap.css'
+            'assets/scss/*'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+
+        <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}"/>
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
 
@@ -54,8 +59,11 @@
 </div>
 
 {% block javascripts %}
-    <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
-    {#<script src="{{ asset('js/main.js') }}"></script>#}
+    {% javascripts filter="?jsqueeze" output="js/app.js"
+        "assets/js/jquery-2.1.4.min.js"
+    %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 {% endblock %}
 </body>
 </html>
