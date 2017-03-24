@@ -8,14 +8,15 @@ user:
     second: Repeat password
 
   edit: Edit
-  login: Login
-  logout: Logout
-  sign-up: Sign up
-  no-account: I don't have an account
-  yes-account: I already have an account
   forgot-password: I forgot my password
-  welcome: Welcome! You have been successfully logged in.
+  login: Sign in
+  logout: Logout
+  no-account: I don't have an account
+  reset-password: Reset password
+  sign-up: Sign up
   update.success: Your account has been successfully updated.
+  welcome: Welcome! You have been successfully logged in.
+  yes-account: I already have an account
 
   activation-link: A link to activate your account has been sent to your inbox. Check it out!
   request-password-link: A link to reset your password has been sent to your inbox. Check it out!
