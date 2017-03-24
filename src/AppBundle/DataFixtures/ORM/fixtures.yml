@@ -1,0 +1,6 @@
+AppBundle\Entity\User:
+    user_{1..10}:
+        email: random.email+<current()>@sintattica.it
+        plainPassword: randomPassword
+        roles: []
+        isActive: true
