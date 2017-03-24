@@ -156,7 +156,7 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            /** @var User $formUser */
+            /** @var User $user */
             $user = $form->getData();
             $user->setToken(null);
 
