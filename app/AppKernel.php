@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new AppBundle\AppBundle()
         ];
 
