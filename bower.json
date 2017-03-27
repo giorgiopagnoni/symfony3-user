@@ -1,0 +1,21 @@
+{
+  "name": "symfony3-user",
+  "description": "symfony3-user =============",
+  "main": "gulpfile.js",
+  "authors": [
+    "Giorgio Pagnoni <giorgio.pagnoni@sintattica.it>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "bootstrap-sass-official#^3.3.7",
+    "font-awesome": "fontawesome#^4.7.0"
+  }
+}
