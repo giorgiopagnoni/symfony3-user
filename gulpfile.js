@@ -5,10 +5,14 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     merge = require('merge-stream');
 
-// move icons to public folder
-gulp.task('icons', function () {
+gulp.task('fa', function () {
     return gulp.src('bower_components/font-awesome/fonts/**.*')
         .pipe(gulp.dest('web/fonts'));
+});
+
+gulp.task('glyphicon', function () {
+    return gulp.src('bower_components/bootstrap-sass/assets/fonts/bootstrap/**.*')
+        .pipe(gulp.dest('web/fonts/bootstrap'));
 });
 
 gulp.task('css', function () {
@@ -38,4 +42,4 @@ gulp.task('js', function () {
         .pipe(gulp.dest('web/js'));
 });
 
-gulp.task('default', ['icons', 'css', 'js']);
+gulp.task('default', ['fa', 'glyphicon', 'css', 'js']);
