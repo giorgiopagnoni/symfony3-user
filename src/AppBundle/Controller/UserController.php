@@ -93,8 +93,6 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        // TODO: is sending an email here really necessary...
-
         $this->addFlash('success', $this->get('translator')->trans('user.welcome'));
 
         // automatic login
