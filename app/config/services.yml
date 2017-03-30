@@ -6,6 +6,7 @@ parameters:
 services:
     user.security.login_form_authenticator:
         class: AppBundle\Security\LoginFormAuthenticator
+        #autowire: true
         arguments: ['@form.factory', '@doctrine.orm.entity_manager', '@router', '@security.user_password_encoder.generic', '%user_has_profile%']
 
     user.doctrine.hash_password_listener:
