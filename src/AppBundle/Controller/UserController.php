@@ -3,12 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
-use AppBundle\Form\EditType;
-use AppBundle\Form\ProfileDetailType;
-use AppBundle\Form\ProfileType;
-use AppBundle\Form\RegistrationType;
-use AppBundle\Form\RequestPasswordType;
-use AppBundle\Form\ResetPasswordType;
+use AppBundle\Form\User\EditType;
+use AppBundle\Form\User\ProfileDetailType;
+use AppBundle\Form\User\ProfileType;
+use AppBundle\Form\User\RegistrationType;
+use AppBundle\Form\User\RequestPasswordType;
+use AppBundle\Form\User\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

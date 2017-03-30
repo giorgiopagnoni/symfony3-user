@@ -10,9 +10,8 @@ namespace AppBundle\Security;
 
 
 use AppBundle\Entity\User;
-use AppBundle\Form\LoginType;
+use AppBundle\Form\Security\LoginType;
 use Doctrine\ORM\EntityManager;
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
