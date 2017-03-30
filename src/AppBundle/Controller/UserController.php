@@ -186,7 +186,19 @@ class UserController extends Controller
      */
     public function chooseProfile(Request $request)
     {
-        $form = $this->createForm(ProfileType::class, $this->getUser());
+        // user_has_profile must be set to true
+        if (!$this->get('user.security.login_form_authenticator')->getUserHasProfile()) {
+            return $this->redirect($this->generateUrl('user_edit'));
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        if ($user->getProfile()) {
+            // user can set profile only once
+            return $this->redirect($this->generateUrl('user_edit'));
+        }
+
+        $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {

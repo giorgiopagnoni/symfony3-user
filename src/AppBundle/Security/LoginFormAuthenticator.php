@@ -102,5 +102,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $this->router->generate('homepage');
     }
 
+    /**
+     * @return boolean
+     */
+    public function getUserHasProfile()
+    {
+        return $this->userHasProfile;
+    }
 
 }
