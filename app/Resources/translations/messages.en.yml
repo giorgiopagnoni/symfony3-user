@@ -15,6 +15,8 @@ user:
   association: Association
   private: Private
 
+  not-found: No user found
+
   edit: Edit
   forgot-password: I forgot my password
   login: Sign in

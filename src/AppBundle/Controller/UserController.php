@@ -121,18 +121,23 @@ class UserController extends Controller
 
         if ($form->isValid()) {
             $repository = $this->getDoctrine()->getRepository(User::class);
+
             /** @var User $user */
-            $user = $repository->findOneBy(['email' => $form->getData()['_username'], 'isActive' => true]);
-
-            if ($user) {
-                $token = $this->get('user.token_generator')->generateToken();
-                $user->setToken($token);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
-
-                $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
+            $user = $repository->findOneBy(['email' => $form->get('_username')->getData(), 'isActive' => true]);
+            if (!$user) {
+                $this->addFlash('warning', $this->get('translator')->trans('user.not-found'));
+                return $this->render('user/request-password-reset.html.twig', [
+                    'form' => $form->createView()
+                ]);
             }
+
+            $token = $this->get('user.token_generator')->generateToken();
+            $user->setToken($token);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
 
             $this->addFlash('success', $this->get('translator')->trans('user.request-password-link'));
             return $this->redirect($this->generateUrl('homepage'));
@@ -234,7 +239,7 @@ class UserController extends Controller
 
             // double check
             if ($user->getProfile() != $profile) {
-                $this->addFlash('error', $this->get('translator')->trans('user.update.error'));
+                $this->addFlash('warning', $this->get('translator')->trans('user.update.error'));
                 return $this->redirect($this->generateUrl('homepage'));
             }
 
