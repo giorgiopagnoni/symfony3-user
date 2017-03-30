@@ -1,11 +1,19 @@
 site:
   name: My Website
 
+select:
+  placeholder: Choose an option...
+
 user:
   email: Email
   password:
     first: Password
     second: Repeat password
+  fullname: Full name
+
+  profile: Profile
+  association: Association
+  private: Private
 
   edit: Edit
   forgot-password: I forgot my password
@@ -14,7 +22,10 @@ user:
   no-account: I don't have an account
   reset-password: Reset password
   sign-up: Sign up
-  update.success: Your account has been successfully updated.
+  update:
+    success: Your account has been successfully updated.
+    error: An error has occured
+
   welcome: Welcome! You have been successfully logged in.
   yes-account: I already have an account
 
