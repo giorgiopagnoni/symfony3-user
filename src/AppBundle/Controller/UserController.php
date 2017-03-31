@@ -43,11 +43,13 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->get('user.mailer')->sendActivationEmailMessage($user);
+            if ($this->getParameter('double_opt_in')) {
+                $this->get('user.mailer')->sendActivationEmailMessage($user);
+                $this->addFlash('success', $this->get('translator')->trans('user.activation-link'));
+                return $this->redirect($this->generateUrl('homepage'));
+            }
 
-            $this->addFlash('success', $this->get('translator')->trans('user.activation-link'));
-            return $this->redirect($this->generateUrl('homepage'));
-//            return $this->redirect($this->generateUrl('user_register_done'));
+            return $this->redirect($this->generateUrl('user_activate', ['token' => $token]));
         }
 
         return $this->render('user/register.html.twig', [
