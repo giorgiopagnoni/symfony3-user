@@ -281,6 +281,11 @@ class User implements AdvancedUserInterface
         return $roles;
     }
 
+    public function isProfiled()
+    {
+        return $this->getProfile() ? true : false;
+    }
+
     public function setRoles(array $roles)
     {
         $this->roles = $roles;

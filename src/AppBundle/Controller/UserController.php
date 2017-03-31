@@ -91,6 +91,11 @@ class UserController extends Controller
         $user->setToken(null);
         $user->setActivatedAt(new \DateTime());
 
+        // fake unused profile
+        if (!$this->get('user.security.login_form_authenticator')->getUserHasProfile()) {
+            $user->setProfile('none');
+        }
+
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
@@ -191,11 +196,6 @@ class UserController extends Controller
      */
     public function chooseProfile(Request $request)
     {
-        // user_has_profile must be set to true
-        if (!$this->get('user.security.login_form_authenticator')->getUserHasProfile()) {
-            return $this->redirect($this->generateUrl('user_edit'));
-        }
-
         /** @var User $user */
         $user = $this->getUser();
         if ($user->getProfile()) {

@@ -11,6 +11,7 @@ class DefaultController extends Controller
 {
     /**
      * @Route("/", name="homepage")
+     * @Security("has_role('ROLE_USER') and user.isProfiled()")
      */
     public function indexAction(Request $request)
     {
