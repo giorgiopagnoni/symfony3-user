@@ -36,7 +36,8 @@ gulp.task('css', function () {
 
 gulp.task('js', function () {
     return gulp.src([
-        'bower_components/jquery/dist/jquery.min.js'
+        'bower_components/jquery/dist/jquery.min.js',
+        'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
     ]).pipe(concat('js.js'))
         .pipe(uglify())
         .pipe(gulp.dest('web/js'));
