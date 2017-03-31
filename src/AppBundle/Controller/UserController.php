@@ -31,7 +31,7 @@ class UserController extends Controller
         $form = $this->createForm(RegistrationType::class);
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $token = $this->get('user.token_generator')->generateToken();
 
             /** @var User $user */
@@ -66,7 +66,7 @@ class UserController extends Controller
         $form = $this->createForm(EditType::class, $this->getUser());
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
 
@@ -126,7 +126,7 @@ class UserController extends Controller
         $form = $this->createForm(RequestPasswordType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $repository = $this->getDoctrine()->getRepository(User::class);
 
             /** @var User $user */
@@ -167,7 +167,7 @@ class UserController extends Controller
         $form = $this->createForm(ResetPasswordType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             /** @var User $user */
             $user = $form->getData();
             $user->setToken(null);
@@ -208,7 +208,7 @@ class UserController extends Controller
         $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->get('session')->set('profile', $form->get('profile')->getData());
             return $this->redirect($this->generateUrl('user_profile_details'));
         }
@@ -234,7 +234,7 @@ class UserController extends Controller
         $form = $this->createForm(ProfileDetailType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
 
             $this->get('session')->remove('profile');
