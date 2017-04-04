@@ -43,7 +43,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            if ($this->getParameter('double_opt_in')) {
+            if ($this->getParameter('app.double_opt_in')) {
                 $this->get('user.mailer')->sendActivationEmailMessage($user);
                 $this->addFlash('success', $this->get('translator')->trans('user.activation-link'));
                 return $this->redirect($this->generateUrl('homepage'));
@@ -94,7 +94,7 @@ class UserController extends Controller
         $user->setActivatedAt(new \DateTime());
 
         // fake unused profile
-        if (!$this->get('user.security.login_form_authenticator')->getUserHasProfile()) {
+        if (!User::MUST_BE_PROFILED) {
             $user->setProfile('none');
         }
 

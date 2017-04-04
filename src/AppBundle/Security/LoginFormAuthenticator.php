@@ -32,15 +32,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $em;
     private $router;
     private $passwordEncoder;
-    private $userHasProfile;
 
-    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder, $userHasProfile)
+    public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder)
     {
         $this->formFactory = $formFactory;
         $this->em = $em;
         $this->router = $router;
         $this->passwordEncoder = $passwordEncoder;
-        $this->userHasProfile = $userHasProfile;
     }
 
     public function getCredentials(Request $request)
@@ -87,7 +85,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if ($this->userHasProfile) {
+        if (User::MUST_BE_PROFILED) {
             /** @var User $user */
             $user = $token->getUser();
             if (!$user->getProfile()) {
@@ -100,14 +98,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     protected function getDefaultSuccessRedirectUrl()
     {
         return $this->router->generate('homepage');
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getUserHasProfile()
-    {
-        return $this->userHasProfile;
     }
 
 }

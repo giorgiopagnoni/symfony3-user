@@ -21,6 +21,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements AdvancedUserInterface
 {
+    const MUST_BE_PROFILED = false;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -283,7 +285,7 @@ class User implements AdvancedUserInterface
 
     public function isProfiled()
     {
-        return $this->getProfile() ? true : false;
+        return !self::MUST_BE_PROFILED || $this->getProfile() ? true : false;
     }
 
     public function setRoles(array $roles)
