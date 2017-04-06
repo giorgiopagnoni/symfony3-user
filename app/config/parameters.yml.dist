@@ -19,5 +19,8 @@ parameters:
     mailer_noreply:
         - noreply@sintattica.it
 
+    fb_client:
+    fb_secret:
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

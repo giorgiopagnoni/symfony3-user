@@ -59,16 +59,21 @@ class User implements AdvancedUserInterface
     private $profile;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true))
      * @Assert\NotBlank(groups={"Private"})
      */
     private $fullname;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank(groups={"Association"})
      */
     private $association;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $facebookId;
 
     /**
      * @ORM\Column(name="is_active", type="boolean")
@@ -170,6 +175,22 @@ class User implements AdvancedUserInterface
     public function setAssociation($association)
     {
         $this->association = $association;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFacebookId()
+    {
+        return $this->facebookId;
+    }
+
+    /**
+     * @param mixed $facebookId
+     */
+    public function setFacebookId($facebookId)
+    {
+        $this->facebookId = $facebookId;
     }
 
     /**

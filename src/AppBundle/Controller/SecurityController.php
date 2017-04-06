@@ -9,8 +9,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Security\LoginType;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
 {
@@ -40,6 +42,25 @@ class SecurityController extends Controller
                 'error' => $error,
             ]
         );
+    }
+
+    /**
+     * @Route("/connect/facebook", name="connect_facebook")
+     */
+    public function facebookConnectAction()
+    {
+        return $this->get('oauth2.registry')
+            ->getClient('facebook_main')
+            ->redirect();
+    }
+
+    /**
+     * @Route("/connect/facebook/check", name="connect_facebook_check")
+     */
+    public function connectCheckAction(Request $request)
+    {
+        // ** if you want to *authenticate* the user, then
+        // leave this method blank and create a Guard authenticator
     }
 
     /**

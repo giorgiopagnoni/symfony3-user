@@ -9,6 +9,10 @@ services:
         autowire: true
         #arguments: ['@form.factory', '@doctrine.orm.entity_manager', '@router', '@security.user_password_encoder.generic', '%user_has_profile%']
 
+    user.security.facebook_authenticator:
+            class: AppBundle\Security\FacebookAuthenticator
+            autowire: true
+
     user.doctrine.hash_password_listener:
         class: AppBundle\Doctrine\HashPasswordListener
         autowire: true

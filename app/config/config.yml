@@ -87,3 +87,17 @@ gregwar_captcha:
     height: 60
     reload: true
     as_url: true
+
+# Social login; see https://github.com/knpuniversity/oauth2-client-bundle
+knpu_oauth2_client:
+    clients:
+        # the key "facebook_main" can be anything, it
+        # will create a service: "knpu.oauth2.client.facebook_main"
+        facebook_main:
+            # this will be one of the supported types
+            type: facebook
+            redirect_route: connect_facebook_check
+            client_id: "%fb_client%"
+            client_secret: "%fb_secret%"
+            redirect_params: {}
+            graph_api_version: v2.8

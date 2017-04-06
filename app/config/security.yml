@@ -21,6 +21,8 @@ security:
             guard:
                 authenticators:
                     - user.security.login_form_authenticator
+                    - user.security.facebook_authenticator
+                entry_point: user.security.login_form_authenticator
 
             remember_me:
                 secret:   '%secret%'
