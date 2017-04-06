@@ -95,7 +95,7 @@ class UserController extends Controller
 
         // fake unused profile
         if (!User::MUST_BE_PROFILED) {
-            $user->setProfile('none');
+            $user->setProfile('user');
         }
 
         $em = $this->getDoctrine()->getManager();
