@@ -69,7 +69,7 @@ class GoogleAuthenticator extends SocialAuthenticator
             $user->setEmail($email);
             $user->setIsActive(true);
             $user->setProfile('user');
-            $user->setPlainPassword('changeMePls');
+            $user->setPlainPassword(md5(uniqid()));
         }
 
         $user->setGoogleId($googleUser->getId());

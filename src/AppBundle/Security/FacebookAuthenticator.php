@@ -68,7 +68,7 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setEmail($email);
             $user->setIsActive(true);
             $user->setProfile('user');
-            $user->setPlainPassword('changeMePls');
+            $user->setPlainPassword(md5(uniqid()));
         }
 
         $user->setFacebookId($facebookUser->getId());
