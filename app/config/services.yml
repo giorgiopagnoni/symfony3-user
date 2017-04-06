@@ -13,6 +13,10 @@ services:
             class: AppBundle\Security\FacebookAuthenticator
             autowire: true
 
+    user.security.google_authenticator:
+            class: AppBundle\Security\GoogleAuthenticator
+            autowire: true
+
     user.doctrine.hash_password_listener:
         class: AppBundle\Doctrine\HashPasswordListener
         autowire: true

@@ -76,6 +76,11 @@ class User implements AdvancedUserInterface
     private $facebookId;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $googleId;
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -191,6 +196,27 @@ class User implements AdvancedUserInterface
     public function setFacebookId($facebookId)
     {
         $this->facebookId = $facebookId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * @param mixed $googleId
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+    }
+
+    public function isSocial()
+    {
+        return $this->getGoogleId() || $this->getFacebookId();
     }
 
     /**

@@ -57,7 +57,26 @@ class SecurityController extends Controller
     /**
      * @Route("/connect/facebook/check", name="connect_facebook_check")
      */
-    public function connectCheckAction(Request $request)
+    public function connectFacebookCheckAction(Request $request)
+    {
+        // ** if you want to *authenticate* the user, then
+        // leave this method blank and create a Guard authenticator
+    }
+
+    /**
+     * @Route("/connect/google", name="connect_google")
+     */
+    public function googleConnectAction()
+    {
+        return $this->get('oauth2.registry')
+            ->getClient('google_main')
+            ->redirect();
+    }
+
+    /**
+     * @Route("/connect/google/check", name="connect_google_check")
+     */
+    public function connectGoogleCheckAction(Request $request)
     {
         // ** if you want to *authenticate* the user, then
         // leave this method blank and create a Guard authenticator
