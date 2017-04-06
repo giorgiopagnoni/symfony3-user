@@ -33,7 +33,7 @@
                         <li><a href="{{ path('user_edit') }}">{{ app.user.email }}</a></li>
                         <li><a href="{{ path('security_logout') }}">{{ 'user.logout'|trans }}</a></li>
                     {% else %}
-                        <li><a href="{{ path('user_register') }}">{{ 'user.sign-up'|trans }}</a></li>
+                        {#<li><a href="{{ path('user_register') }}">{{ 'user.sign-up'|trans }}</a></li>#}
                         <li><a href="{{ path('security_login') }}">{{ 'user.login'|trans }}</a></li>
                     {% endif %}
                 </ul>
