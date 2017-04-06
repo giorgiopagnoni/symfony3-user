@@ -59,8 +59,7 @@ class SecurityController extends Controller
      */
     public function connectFacebookCheckAction(Request $request)
     {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
+        // nope, see FacebookAuthenticator
     }
 
     /**
@@ -78,8 +77,7 @@ class SecurityController extends Controller
      */
     public function connectGoogleCheckAction(Request $request)
     {
-        // ** if you want to *authenticate* the user, then
-        // leave this method blank and create a Guard authenticator
+        // nope, see GoogleAuthenticator
     }
 
     /**
