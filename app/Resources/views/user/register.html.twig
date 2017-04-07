@@ -14,7 +14,6 @@
                 {% else %}
                     {{ form_row(form.recaptcha) }}
                 {% endif %}
-                <br>
                 <button type="submit" class="btn btn-primary" formnovalidate>{{ 'user.sign-up'|trans }}</button>
                 <a href="{{ path('security_login') }}">{{ 'user.yes-account'|trans }}</a>
                 {{ form_end(form) }}
