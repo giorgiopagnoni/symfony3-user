@@ -43,7 +43,7 @@ class UserController extends Controller
 
             if ($this->getParameter('app.double_opt_in')) {
                 $this->get('user.mailer')->sendActivationEmailMessage($user);
-                $this->addFlash('success', $this->get('translator')->trans('user.activation-link'));
+                $this->addFlash('success', 'user.activation-link');
                 return $this->redirect($this->generateUrl('homepage'));
             }
 
@@ -72,7 +72,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('user.update.success'));
+            $this->addFlash('success', 'user.update.success');
 
             return $this->redirect($this->generateUrl('homepage'));
         }
@@ -95,7 +95,7 @@ class UserController extends Controller
         $em->persist($user);
         $em->flush();
 
-        $this->addFlash('success', $this->get('translator')->trans('user.welcome'));
+        $this->addFlash('success', 'user.welcome');
 
         // automatic login
         return $this->get('security.authentication.guard_handler')
@@ -125,7 +125,7 @@ class UserController extends Controller
             /** @var User $user */
             $user = $repository->findOneBy(['email' => $form->get('_username')->getData(), 'isActive' => true]);
             if (!$user) {
-                $this->addFlash('warning', $this->get('translator')->trans('user.not-found'));
+                $this->addFlash('warning', 'user.not-found');
                 return $this->render('user/request-password-reset.html.twig', [
                     'form' => $form->createView()
                 ]);
@@ -139,7 +139,7 @@ class UserController extends Controller
 
             $this->get('user.mailer')->sendResetPasswordEmailMessage($user);
 
-            $this->addFlash('success', $this->get('translator')->trans('user.request-password-link'));
+            $this->addFlash('success', 'user.request-password-link');
             return $this->redirect($this->generateUrl('homepage'));
         }
 
@@ -169,7 +169,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans('user.update.success'));
+            $this->addFlash('success', 'user.update.success');
 
             // automatic login
             return $this->get('security.authentication.guard_handler')
