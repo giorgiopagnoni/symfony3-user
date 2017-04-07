@@ -11,20 +11,6 @@
                     <p class="form-control-static">{{ app.user.email }}</p>
                 </div>
 
-                {% if app.user.fullname is not empty %}
-                    <div class="form-group">
-                        <label class="control-label">{{ 'user.fullname'|trans }}</label>
-                        <p class="form-control-static">{{ app.user.fullname }}</p>
-                    </div>
-                {% endif %}
-
-                {% if app.user.association is not empty %}
-                    <div class="form-group">
-                        <label class="control-label">{{ 'user.association'|trans }}</label>
-                        <p class="form-control-static">{{ app.user.association }}</p>
-                    </div>
-                {% endif %}
-
                 {{ include('user/_editform.html.twig') }}
 
                 <button type="submit" class="btn btn-primary" formnovalidate>Save</button>

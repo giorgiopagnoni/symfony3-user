@@ -11,10 +11,6 @@ user:
     second: Ripeti password
   fullname: Nome completo
 
-  profile: Profilo
-  association: Associazione
-  private: Privato
-
   not-found: Utente non trovato
 
   edit: Modifica

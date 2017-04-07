@@ -11,10 +11,6 @@ user:
     second: "* Repeat password"
   fullname: Full name
 
-  profile: Profile
-  association: Association
-  private: Private
-
   not-found: No user found
 
   edit: Edit
