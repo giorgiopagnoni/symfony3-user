@@ -119,7 +119,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $form = $this->createForm(RequestPasswordType::class);
+        $form = $this->createForm(RequestPasswordType::class, null, ['captcha_type' => $this->getParameter('app.captcha_type')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

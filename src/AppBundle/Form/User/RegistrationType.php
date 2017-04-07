@@ -19,6 +19,7 @@ class RegistrationType extends EditType
             ->add('email', EmailType::class, [
                 'label' => 'user.email'
             ]);
+
         switch ($options['captcha_type']) {
             case 'gregwar':
                 $builder->add('captcha', CaptchaType::class, [
@@ -33,6 +34,7 @@ class RegistrationType extends EditType
                 ]);
                 break;
         }
+
         parent::buildForm($builder, $options);
     }
 
