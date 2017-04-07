@@ -7,3 +7,4 @@ TODO:
 -
 - Delete user profile? Or try inheritance mapping?
 - GoogleAuthenticator and FacebookAuthenticator share a lot of code
+- GregwarCpatcha and EWZRecaptchaBundle are both required by default; pick one!

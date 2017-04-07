@@ -8,6 +8,7 @@ imports:
 parameters:
     locale: en
     app.double_opt_in: true
+    app.captcha_type: gregwar # recaptcha|gregwar
 
 framework:
     #esi:             ~
@@ -87,6 +88,11 @@ gregwar_captcha:
     height: 60
     reload: true
     as_url: true
+
+# Recaptcha
+ewz_recaptcha:
+    public_key:  "%recaptcha_public_key%"
+    private_key: "%recaptcha_private_key%"
 
 # Social login; see https://github.com/knpuniversity/oauth2-client-bundle
 knpu_oauth2_client:

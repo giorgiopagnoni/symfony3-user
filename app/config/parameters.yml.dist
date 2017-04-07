@@ -25,5 +25,8 @@ parameters:
     google_client_id:
     google_client_secret:
 
+    recaptcha_public_key:
+    recaptcha_private_key:
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt

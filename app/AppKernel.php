@@ -18,6 +18,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
             new AppBundle\AppBundle()
         ];

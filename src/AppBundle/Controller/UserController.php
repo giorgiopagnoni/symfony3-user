@@ -28,7 +28,7 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('homepage'));
         }
 
-        $form = $this->createForm(RegistrationType::class);
+        $form = $this->createForm(RegistrationType::class, null, ['captcha_type' => $this->getParameter('app.captcha_type')]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,6 +38,7 @@ class UserController extends Controller
             $user = $form->getData();
             $user->setToken($token);
             $user->setIsActive(false);
+            $user->setProfile('user');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -92,11 +93,6 @@ class UserController extends Controller
         $user->setIsActive(true);
         $user->setToken(null);
         $user->setActivatedAt(new \DateTime());
-
-        // fake unused profile
-        if (!User::MUST_BE_PROFILED) {
-            $user->setProfile('user');
-        }
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);

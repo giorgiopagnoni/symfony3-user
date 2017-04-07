@@ -5,10 +5,10 @@ select:
   placeholder: Choose an option...
 
 user:
-  email: Email
+  email: "* Email"
   password:
-    first: Password
-    second: Repeat password
+    first: "* Password"
+    second: "* Repeat password"
   fullname: Full name
 
   profile: Profile
@@ -39,5 +39,5 @@ user:
     reset-password.html: 'Click <a href="%resetPasswordUrl%" target="_blank">here</a> to reset your password'
     reset-password.txt: 'Click on the following link to reset your password %resetPasswordUrl%'
 
-captcha: Captcha
+captcha: "* Captcha"
 rememberme: Remember me
