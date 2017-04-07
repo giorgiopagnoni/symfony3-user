@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements AdvancedUserInterface
 {
-    const MUST_BE_PROFILED = false;
-
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -51,24 +49,6 @@ class User implements AdvancedUserInterface
      * @Assert\Length(min=5)
      */
     private $plainPassword;
-
-    /**
-     * @ORM\Column(type="string", length=20)
-     * @Assert\NotBlank(groups={"Profile"})
-     */
-    private $profile;
-
-    /**
-     * @ORM\Column(type="string", nullable=true))
-     * @Assert\NotBlank(groups={"Private"})
-     */
-    private $fullname;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank(groups={"Association"})
-     */
-    private $association;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -132,54 +112,6 @@ class User implements AdvancedUserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getProfile()
-    {
-        return $this->profile;
-    }
-
-    /**
-     * @param mixed $profile
-     */
-    public function setProfile($profile)
-    {
-        $this->profile = $profile;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFullname()
-    {
-        return $this->fullname;
-    }
-
-    /**
-     * @param mixed $fullname
-     */
-    public function setFullname($fullname)
-    {
-        $this->fullname = $fullname;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAssociation()
-    {
-        return $this->association;
-    }
-
-    /**
-     * @param mixed $association
-     */
-    public function setAssociation($association)
-    {
-        $this->association = $association;
     }
 
     /**
@@ -328,11 +260,6 @@ class User implements AdvancedUserInterface
         }
 
         return $roles;
-    }
-
-    public function isProfiled()
-    {
-        return !self::MUST_BE_PROFILED || $this->getProfile() ? true : false;
     }
 
     public function setRoles(array $roles)

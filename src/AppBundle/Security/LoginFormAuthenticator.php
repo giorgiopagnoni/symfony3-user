@@ -85,13 +85,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if (User::MUST_BE_PROFILED) {
-            /** @var User $user */
-            $user = $token->getUser();
-            if (!$user->getProfile()) {
-                return new RedirectResponse($this->router->generate('user_profile'));
-            }
-        }
         return parent::onAuthenticationSuccess($request, $token, $providerKey);
     }
 

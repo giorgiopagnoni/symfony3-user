@@ -4,8 +4,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\User;
 use AppBundle\Form\User\EditType;
-use AppBundle\Form\User\ProfileDetailType;
-use AppBundle\Form\User\ProfileType;
 use AppBundle\Form\User\RegistrationType;
 use AppBundle\Form\User\RequestPasswordType;
 use AppBundle\Form\User\ResetPasswordType;
@@ -38,7 +36,6 @@ class UserController extends Controller
             $user = $form->getData();
             $user->setToken($token);
             $user->setIsActive(false);
-            $user->setProfile('user');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -188,71 +185,4 @@ class UserController extends Controller
         return $this->render('user/password-reset.html.twig', ['form' => $form->createView()]);
     }
 
-    /**
-     * @Route("/profile", name="user_profile")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function chooseProfile(Request $request)
-    {
-        /** @var User $user */
-        $user = $this->getUser();
-        if ($user->getProfile()) {
-            // user can set profile only once
-            return $this->redirect($this->generateUrl('user_edit'));
-        }
-
-        $form = $this->createForm(ProfileType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->get('session')->set('profile', $form->get('profile')->getData());
-            return $this->redirect($this->generateUrl('user_profile_details'));
-        }
-
-        return $this->render('user/profile.html.twig', ['form' => $form->createView()]);
-    }
-
-    /**
-     * @Route("/profile-details", name="user_profile_details")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function fillProfileDetails(Request $request)
-    {
-        $profile = $this->get('session')->get('profile');
-        if (!$profile) {
-            return $this->redirect($this->generateUrl('user_profile'));
-        }
-
-        /** @var User $user */
-        $user = $this->getUser();
-        $user->setProfile($profile);
-
-        $form = $this->createForm(ProfileDetailType::class, $user);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-
-            $this->get('session')->remove('profile');
-
-            // double check
-            if ($user->getProfile() != $profile) {
-                $this->addFlash('warning', $this->get('translator')->trans('user.update.error'));
-                return $this->redirect($this->generateUrl('homepage'));
-            }
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success', $this->get('translator')->trans('user.update.success'));
-            return $this->redirect($this->generateUrl('homepage'));
-        }
-
-        return $this->render('user/profile-detail.html.twig', [
-            'form' => $form->createView(),
-            'profile' => $profile
-        ]);
-
-    }
 }
