@@ -7,6 +7,9 @@ use Nelmio\Alice\Fixtures;
 
 class LoadFixtures implements FixtureInterface
 {
+    /**
+     * @param ObjectManager $manager
+     */
     public function load(ObjectManager $manager)
     {
         $objects = Fixtures::load(

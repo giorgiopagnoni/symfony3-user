@@ -16,7 +16,11 @@ class TokenGenerator implements TokenGeneratorInterface
     private $logger;
     
     private $useOpenSsl;
-    
+
+    /**
+     * TokenGenerator constructor.
+     * @param LoggerInterface|null $logger
+     */
     public function __construct(LoggerInterface $logger = null)
     {
         $this->logger = $logger;
@@ -32,10 +36,18 @@ class TokenGenerator implements TokenGeneratorInterface
             $this->useOpenSsl = true;
         }
     }
+
+    /**
+     * @return string
+     */
     public function generateToken()
     {
         return rtrim(strtr(base64_encode($this->getRandomNumber()), '+/', '-_'), '=');
     }
+
+    /**
+     * @return string
+     */
     private function getRandomNumber()
     {
         $nbBytes = 32;

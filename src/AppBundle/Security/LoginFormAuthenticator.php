@@ -33,6 +33,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     private $router;
     private $passwordEncoder;
 
+    /**
+     * LoginFormAuthenticator constructor.
+     * @param FormFactoryInterface $formFactory
+     * @param EntityManager $em
+     * @param RouterInterface $router
+     * @param UserPasswordEncoder $passwordEncoder
+     */
     public function __construct(FormFactoryInterface $formFactory, EntityManager $em, RouterInterface $router, UserPasswordEncoder $passwordEncoder)
     {
         $this->formFactory = $formFactory;
@@ -41,6 +48,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @param Request $request
+     * @return mixed|null
+     */
     public function getCredentials(Request $request)
     {
         $isLoginSubmit = $request->getPathInfo() == '/login' && $request->isMethod('POST');
@@ -59,6 +70,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return $data;
     }
 
+    /**
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return User|null
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $username = $credentials['_username'];
@@ -67,6 +83,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             ->findOneBy(['email' => $username]);
     }
 
+    /**
+     * @param mixed $credentials
+     * @param UserInterface $user
+     * @return bool
+     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         $password = $credentials['_password'];
@@ -78,16 +99,28 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         return false;
     }
 
+    /**
+     * @return string
+     */
     protected function getLoginUrl()
     {
         return $this->router->generate('security_login');
     }
 
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         return parent::onAuthenticationSuccess($request, $token, $providerKey);
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultSuccessRedirectUrl()
     {
         return $this->router->generate('homepage');

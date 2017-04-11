@@ -9,15 +9,17 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Form\Security\LoginType;
-use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="security_login")
+     *
+     * @return Response
      */
     public function loginAction()
     {
@@ -46,6 +48,8 @@ class SecurityController extends Controller
 
     /**
      * @Route("/connect/facebook", name="connect_facebook")
+     *
+     * @return Response
      */
     public function facebookConnectAction()
     {
@@ -56,6 +60,8 @@ class SecurityController extends Controller
 
     /**
      * @Route("/connect/facebook/check", name="connect_facebook_check")
+     *
+     * @param $request Request
      */
     public function connectFacebookCheckAction(Request $request)
     {
@@ -64,6 +70,8 @@ class SecurityController extends Controller
 
     /**
      * @Route("/connect/google", name="connect_google")
+     *
+     * @return Response
      */
     public function googleConnectAction()
     {
@@ -74,6 +82,8 @@ class SecurityController extends Controller
 
     /**
      * @Route("/connect/google/check", name="connect_google_check")
+     *
+     * @param $request Request
      */
     public function connectGoogleCheckAction(Request $request)
     {

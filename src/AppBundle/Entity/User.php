@@ -92,14 +92,18 @@ class User implements AdvancedUserInterface
      */
     private $activatedAt;
 
-    // needed by the security system
+    /**
+     * Needed by the security system
+     *
+     * @return string
+     */
     public function getUsername()
     {
         return $this->email;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getEmail()
     {
@@ -107,7 +111,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $email
+     * @param string $email
      */
     public function setEmail($email)
     {
@@ -115,7 +119,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFacebookId()
     {
@@ -123,7 +127,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $facebookId
+     * @param string $facebookId
      */
     public function setFacebookId($facebookId)
     {
@@ -131,7 +135,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getGoogleId()
     {
@@ -139,20 +143,23 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $googleId
+     * @param string $googleId
      */
     public function setGoogleId($googleId)
     {
         $this->googleId = $googleId;
     }
 
+    /**
+     * @return bool
+     */
     public function isSocial()
     {
         return $this->getGoogleId() || $this->getFacebookId();
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPassword()
     {
@@ -160,7 +167,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $password
+     * @param string $password
      */
     public function setPassword($password)
     {
@@ -168,7 +175,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPlainPassword()
     {
@@ -176,7 +183,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $plainPassword
+     * @param string $plainPassword
      */
     public function setPlainPassword($plainPassword)
     {
@@ -187,7 +194,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
     public function getIsActive()
     {
@@ -195,7 +202,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $isActive
+     * @param bool $isActive
      */
     public function setIsActive($isActive)
     {
@@ -235,7 +242,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getToken()
     {
@@ -243,7 +250,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param mixed $token
+     * @param string $token
      */
     public function setToken($token)
     {

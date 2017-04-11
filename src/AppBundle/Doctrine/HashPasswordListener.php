@@ -12,16 +12,26 @@ class HashPasswordListener implements EventSubscriber
 {
     private $passwordEncoder;
 
+    /**
+     * HashPasswordListener constructor.
+     * @param UserPasswordEncoder $passwordEncoder
+     */
     public function __construct(UserPasswordEncoder $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * @return Events[]
+     */
     public function getSubscribedEvents()
     {
         return [Events::prePersist, Events::preUpdate];
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -31,6 +41,9 @@ class HashPasswordListener implements EventSubscriber
         $this->encodePassword($entity);
     }
 
+    /**
+     * @param LifecycleEventArgs $args
+     */
     public function preUpdate(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();

@@ -10,6 +10,7 @@ use AppBundle\Form\User\ResetPasswordType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,6 +20,9 @@ class UserController extends Controller
 {
     /**
      * @Route("/register", name="user_register")
+     *
+     * @param $request Request
+     * @return Response
      */
     public function registerAction(Request $request)
     {
@@ -58,6 +62,9 @@ class UserController extends Controller
     /**
      * @Route("/edit", name="user_edit")
      * @Security("has_role('ROLE_USER')")
+     *
+     * @param $request Request
+     * @return Response
      */
     public function editAction(Request $request)
     {
@@ -84,6 +91,10 @@ class UserController extends Controller
 
     /**
      * @Route("/activate/{token}", name="user_activate")
+     *
+     * @param $request Request
+     * @param $user User
+     * @return Response
      */
     public function activateAction(Request $request, User $user)
     {
@@ -109,6 +120,9 @@ class UserController extends Controller
 
     /**
      * @Route("/request-password-reset", name="user_request_password_reset")
+     *
+     * @param $request Request
+     * @return Response
      */
     public function requestPasswordResetAction(Request $request)
     {
@@ -150,6 +164,10 @@ class UserController extends Controller
 
     /**
      * @Route("/reset-password/{token}", name="user_reset_password")
+     *
+     * @param $request Request
+     * @param $user User
+     * @return Response
      */
     public function resetPasswordAction(Request $request, User $user)
     {

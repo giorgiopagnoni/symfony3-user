@@ -29,6 +29,12 @@ class MySocialAuthenticator extends SocialAuthenticator
     private $em;
     private $router;
 
+    /**
+     * MySocialAuthenticator constructor.
+     * @param ClientRegistry $clientRegistry
+     * @param EntityManager $em
+     * @param RouterInterface $router
+     */
     public function __construct(ClientRegistry $clientRegistry, EntityManager $em, RouterInterface $router)
     {
         $this->clientRegistry = $clientRegistry;
@@ -36,6 +42,10 @@ class MySocialAuthenticator extends SocialAuthenticator
         $this->router = $router;
     }
 
+    /**
+     * @param Request $request
+     * @return array|null
+     */
     public function getCredentials(Request $request)
     {
         if ($request->getPathInfo() == '/connect/facebook/check') {
@@ -53,9 +63,14 @@ class MySocialAuthenticator extends SocialAuthenticator
         }
 
         // don't auth
-        return;
+        return null;
     }
 
+    /**
+     * @param mixed $credentials
+     * @param UserProviderInterface $userProvider
+     * @return User|null
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $getClient = 'get' . ucfirst($credentials['service'] . 'Client');
@@ -106,6 +121,11 @@ class MySocialAuthenticator extends SocialAuthenticator
         return $this->clientRegistry->getClient('google_main');
     }
 
+    /**
+     * @param Request $request
+     * @param AuthenticationException|null $authException
+     * @return RedirectResponse
+     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         $url = $this->router->generate('security_login');
@@ -117,6 +137,12 @@ class MySocialAuthenticator extends SocialAuthenticator
         // TODO: Implement onAuthenticationFailure() method.
     }
 
+    /**
+     * @param Request $request
+     * @param TokenInterface $token
+     * @param string $providerKey
+     * @return RedirectResponse
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         return new RedirectResponse($this->router->generate('homepage'));

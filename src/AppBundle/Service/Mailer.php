@@ -21,6 +21,14 @@ class Mailer
     protected $logger;
     protected $noreply;
 
+    /**
+     * Mailer constructor.
+     * @param \Swift_Mailer $mailer
+     * @param Router $router
+     * @param \Twig_Environment $twig
+     * @param LoggerInterface $logger
+     * @param $noreply
+     */
     public function __construct(\Swift_Mailer $mailer, Router $router, \Twig_Environment $twig, LoggerInterface $logger, $noreply)
     {
         $this->mailer = $mailer;
@@ -30,6 +38,9 @@ class Mailer
         $this->noreply = $noreply;
     }
 
+    /**
+     * @param User $user
+     */
     public function sendActivationEmailMessage(User $user)
     {
         $url = $this->router->generate('user_activate', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -55,6 +66,9 @@ class Mailer
 //        $this->sendMessage($template, $context, $this->parameters['from_email'], $user->getEmail());
 //    }
 
+    /**
+     * @param User $user
+     */
     public function sendResetPasswordEmailMessage(User $user)
     {
         $url = $this->router->generate('user_reset_password', ['token' => $user->getToken()], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -68,16 +82,16 @@ class Mailer
     }
 
     /**
-     * @param $templateName
+     * @param $templateName string
      * @param $context
-     * @param $fromEmail
-     * @param $toEmail
+     * @param $fromEmail string
+     * @param $toEmail string
      * @return bool
      */
     protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
     {
         $context = $this->twig->mergeGlobals($context);
-        $template = $this->twig->loadTemplate($templateName);
+        $template = $this->twig->load($templateName);
         $subject = $template->renderBlock('subject', $context);
         $textBody = $template->renderBlock('body_text', $context);
         $htmlBody = $template->renderBlock('body_html', $context);
@@ -97,9 +111,9 @@ class Mailer
 
         $log_context = ['to' => $toEmail, 'message' => $textBody, 'template' => $templateName];
         if ($result) {
-            $this->logger->addInfo('SMTP email sent', $log_context);
+            $this->logger->info('SMTP email sent', $log_context);
         } else {
-            $this->logger->addError('SMTP email error', $log_context);
+            $this->logger->error('SMTP email error', $log_context);
         }
 
         return $result;
