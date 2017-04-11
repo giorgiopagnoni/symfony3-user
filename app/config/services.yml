@@ -7,12 +7,8 @@ services:
         class: AppBundle\Security\LoginFormAuthenticator
         autowire: true
 
-    user.security.facebook_authenticator:
-        class: AppBundle\Security\FacebookAuthenticator
-        autowire: true
-
-    user.security.google_authenticator:
-        class: AppBundle\Security\GoogleAuthenticator
+    user.security.social_authenticator:
+        class: AppBundle\Security\MySocialAuthenticator
         autowire: true
 
     user.doctrine.hash_password_listener:

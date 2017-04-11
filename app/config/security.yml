@@ -21,8 +21,7 @@ security:
             guard:
                 authenticators:
                     - user.security.login_form_authenticator
-                    - user.security.facebook_authenticator
-                    - user.security.google_authenticator
+                    - user.security.social_authenticator
                 entry_point: user.security.login_form_authenticator
 
             remember_me:

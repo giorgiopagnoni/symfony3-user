@@ -15,6 +15,7 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Provider\FacebookUser;
+use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -22,7 +23,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class FacebookAuthenticator extends SocialAuthenticator
+class MySocialAuthenticator extends SocialAuthenticator
 {
     private $clientRegistry;
     private $em;
@@ -37,29 +38,40 @@ class FacebookAuthenticator extends SocialAuthenticator
 
     public function getCredentials(Request $request)
     {
-        if ($request->getPathInfo() != '/connect/facebook/check') {
-            // don't auth
-            return;
+        if ($request->getPathInfo() == '/connect/facebook/check') {
+            return [
+                'token' => $this->fetchAccessToken($this->getFacebookClient()),
+                'service' => 'facebook'
+            ];
         }
 
-        return $this->fetchAccessToken($this->getFacebookClient());
+        if ($request->getPathInfo() == '/connect/google/check') {
+            return [
+                'token' => $this->fetchAccessToken($this->getGoogleClient()),
+                'service' => 'google'
+            ];
+        }
+
+        // don't auth
+        return;
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        /** @var FacebookUser $facebookUser */
-        $facebookUser = $this->getFacebookClient()
-            ->fetchUserFromToken($credentials);
+        $getClient = 'get' . ucfirst($credentials['service'] . 'Client');
+        $socialUser = $this->$getClient()
+            ->fetchUserFromToken($credentials['token']);
 
-        // Have they logged in with Facebook before?
+        // Have they logged in with that social before?
+        $socialId = $credentials['service'] .'Id';
         $existingUser = $this->em->getRepository('AppBundle:User')
-            ->findOneBy(['facebookId' => $facebookUser->getId()]);
+            ->findOneBy([$socialId => $socialUser->getId()]);
         if ($existingUser) {
             return $existingUser;
         }
 
         // Do we have a matching user by email?
-        $email = $facebookUser->getEmail();
+        $email = $socialUser->getEmail();
         $user = $this->em->getRepository('AppBundle:User')
             ->findOneBy(['email' => $email]);
 
@@ -70,7 +82,8 @@ class FacebookAuthenticator extends SocialAuthenticator
             $user->setPlainPassword(md5(uniqid()));
         }
 
-        $user->setFacebookId($facebookUser->getId());
+        $setId = 'set' . ucfirst($socialId);
+        $user->$setId($socialUser->getId());
         $this->em->persist($user);
         $this->em->flush();
 
@@ -85,9 +98,17 @@ class FacebookAuthenticator extends SocialAuthenticator
         return $this->clientRegistry->getClient('facebook_main');
     }
 
+    /**
+     * @return OAuth2Client
+     */
+    private function getGoogleClient()
+    {
+        return $this->clientRegistry->getClient('google_main');
+    }
+
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        $url = $this->router->generate('connect_facebook');
+        $url = $this->router->generate('security_login');
         return new RedirectResponse($url);
     }
 
