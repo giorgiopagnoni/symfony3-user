@@ -83,7 +83,7 @@ class Mailer
 
     /**
      * @param $templateName string
-     * @param $context
+     * @param $context array
      * @param $fromEmail string
      * @param $toEmail string
      * @return bool
@@ -102,8 +102,7 @@ class Mailer
             ->setTo($toEmail);
 
         if (!empty($htmlBody)) {
-            $message->setBody($htmlBody, 'text/html')
-                ->addPart($textBody, 'text/plain');
+            $message->setBody($htmlBody, 'text/html')->addPart($textBody, 'text/plain');
         } else {
             $message->setBody($textBody);
         }

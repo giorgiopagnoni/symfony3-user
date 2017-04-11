@@ -13,8 +13,14 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class TokenGenerator implements TokenGeneratorInterface
 {
+    /**
+     * @var LoggerInterface|null
+     */
     private $logger;
-    
+
+    /**
+     * @var bool
+     */
     private $useOpenSsl;
 
     /**
