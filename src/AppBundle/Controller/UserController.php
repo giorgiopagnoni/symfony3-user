@@ -84,6 +84,7 @@ class UserController extends Controller
             }
 
             // see http://stackoverflow.com/questions/9812510/symfony2-how-to-modify-the-current-users-entity-using-a-form
+            // TODO check with more editable fields
             $em->refresh($user);
         }
 
