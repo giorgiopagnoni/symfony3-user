@@ -69,19 +69,22 @@ class UserController extends Controller
     public function editAction(Request $request)
     {
         $form = $this->createForm(EditType::class, $this->getUser());
-
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             /** @var User $user */
             $user = $form->getData();
-
             $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
 
-            $this->addFlash('success', 'user.update.success');
+            if ($form->isValid()) {
+                $em->persist($user);
+                $em->flush();
+                $this->addFlash('success', 'user.update.success');
 
-            return $this->redirect($this->generateUrl('homepage'));
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+
+            // see http://stackoverflow.com/questions/9812510/symfony2-how-to-modify-the-current-users-entity-using-a-form
+            $em->refresh($user);
         }
 
         return $this->render('user/edit.html.twig', [

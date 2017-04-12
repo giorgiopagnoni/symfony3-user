@@ -27,7 +27,7 @@ class Mailer
      * @param Router $router
      * @param \Twig_Environment $twig
      * @param LoggerInterface $logger
-     * @param $noreply
+     * @param string $noreply
      */
     public function __construct(\Swift_Mailer $mailer, Router $router, \Twig_Environment $twig, LoggerInterface $logger, $noreply)
     {

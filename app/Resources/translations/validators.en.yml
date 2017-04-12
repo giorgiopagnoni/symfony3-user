@@ -1,2 +1,4 @@
 user:
   exists: It looks like your already have an account
+  password:
+    must_be_complex: The password must contain at least one number, one lowercase character and one uppercase character.

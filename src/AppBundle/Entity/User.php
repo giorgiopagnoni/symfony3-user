@@ -8,6 +8,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Validator\Constraints\ComplexPassword;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -47,6 +48,7 @@ class User implements AdvancedUserInterface
      *
      * @Assert\NotBlank(groups={"Registration", "PasswordReset"})
      * @Assert\Length(min=5)
+     * @ComplexPassword()
      */
     private $plainPassword;
 
