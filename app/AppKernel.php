@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
             new EWZ\Bundle\RecaptchaBundle\EWZRecaptchaBundle(),
             new KnpU\OAuth2ClientBundle\KnpUOAuth2ClientBundle(),
+            new Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle(),
             new AppBundle\AppBundle()
         ];
 

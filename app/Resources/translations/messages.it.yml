@@ -37,3 +37,6 @@ user:
 
 captcha: Captcha
 rememberme: Ricordami
+
+Tags: Tag
+tags.placeholder: Scegli uno o più tag...

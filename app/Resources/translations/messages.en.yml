@@ -37,3 +37,6 @@ user:
 
 captcha: "* Captcha"
 rememberme: Remember me
+
+Tags: Tags
+tags.placeholder: Choose one or more tags...

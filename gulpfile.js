@@ -18,6 +18,8 @@ gulp.task('glyphicon', function () {
 gulp.task('css', function () {
     var scssStream = gulp.src([
         'bower_components/font-awesome/scss/font-awesome.scss',
+        'bower_components/select2/dist/css/select2.min.css',
+        'bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
         'app/Resources/assets/styles/styles.scss'
     ])
         .pipe(sass({
@@ -37,7 +39,9 @@ gulp.task('css', function () {
 gulp.task('js', function () {
     return gulp.src([
         'bower_components/jquery/dist/jquery.min.js',
-        'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js'
+        'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+        'bower_components/select2/dist/js/select2.full.min.js',
+        'vendor/tetranz/select2entity-bundle/Tetranz/Select2EntityBundle/Resources/public/js/select2entity.js'
     ]).pipe(concat('js.js'))
         .pipe(uglify())
         .pipe(gulp.dest('web/js'));

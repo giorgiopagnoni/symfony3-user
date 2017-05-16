@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use AppBundle\Validator\Constraints\ComplexPassword;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -30,7 +31,7 @@ class User implements AdvancedUserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", unique=true))
+     * @ORM\Column(type="string", unique=true)
      * @Assert\NotBlank(groups={"Registration"})
      * @Assert\Email()
      */
@@ -51,6 +52,11 @@ class User implements AdvancedUserInterface
      * @ComplexPassword()
      */
     private $plainPassword;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Tag")
+     */
+    private $tags;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -93,6 +99,11 @@ class User implements AdvancedUserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $activatedAt;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Needed by the security system
@@ -257,6 +268,22 @@ class User implements AdvancedUserInterface
     public function setToken($token)
     {
         $this->token = $token;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * @param ArrayCollection $tags
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
     }
 
     public function getRoles()

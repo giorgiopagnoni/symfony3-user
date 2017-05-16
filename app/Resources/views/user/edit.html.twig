@@ -13,6 +13,8 @@
 
                 {{ include('user/_editform.html.twig') }}
 
+                {{ form_row(form.tags) }}
+
                 <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
                 {{ form_end(form) }}
             </div>

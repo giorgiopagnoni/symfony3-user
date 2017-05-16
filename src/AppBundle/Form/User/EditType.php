@@ -2,12 +2,14 @@
 
 namespace AppBundle\Form\User;
 
+use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 class EditType extends AbstractType
 {
@@ -20,9 +22,23 @@ class EditType extends AbstractType
         $builder
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'first_options'  => ['label' => 'user.password.first'],
+                'first_options' => ['label' => 'user.password.first'],
                 'second_options' => ['label' => 'user.password.second'],
             ]);
+
+        $builder->add('tags', Select2EntityType::class, [
+            'multiple' => true,
+            'class' => Tag::class,
+            'text_property' => 'name',
+            'allow_clear' => 'true',
+            'remote_route' => 'tag_list',
+            'minimum_input_length' => 0,
+            'attr' => [
+                'data-theme' => 'bootstrap',
+                'style' => 'width:100%' // workaround
+            ],
+            'placeholder' => 'tags.placeholder'
+        ]);
     }
 
     /**
