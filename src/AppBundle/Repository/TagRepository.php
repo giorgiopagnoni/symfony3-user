@@ -14,6 +14,7 @@ use Doctrine\ORM\EntityRepository;
 class TagRepository extends EntityRepository
 {
     /**
+     * @link https://github.com/tetranz/select2entity-bundle
      * @return array
      */
     public function getTagsForSelectPlugin()
