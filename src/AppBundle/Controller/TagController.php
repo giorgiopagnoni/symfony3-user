@@ -22,14 +22,7 @@ class TagController extends Controller
      */
     public function indexAction()
     {
-        /** @var EntityRepository $repository */
-        $repository = $this->getDoctrine()->getRepository(Tag::class);
-        $query = $repository->createQueryBuilder('t')
-            ->select('t.id, t.name AS text')
-            ->orderBy('t.name', 'ASC')
-            ->getQuery();
-        $tags = $query->getResult();
-
+        $tags = $this->getDoctrine()->getRepository(Tag::class)->getTagsForSelectPlugin();
         return new JsonResponse($tags);
     }
 }
