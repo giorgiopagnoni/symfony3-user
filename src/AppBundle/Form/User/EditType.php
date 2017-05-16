@@ -30,14 +30,14 @@ class EditType extends AbstractType
             'multiple' => true,
             'class' => Tag::class,
             'text_property' => 'name',
-            'allow_clear' => 'true',
             'remote_route' => 'tag_list',
             'minimum_input_length' => 0,
             'attr' => [
                 'data-theme' => 'bootstrap',
-                'style' => 'width:100%' // workaround
+                //'style' => 'width:100%' // workaround
             ],
-            'placeholder' => 'tags.placeholder'
+            'placeholder' => 'tags.placeholder',
+            'width' => '100%'
         ]);
     }
 
