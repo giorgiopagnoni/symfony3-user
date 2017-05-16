@@ -26,7 +26,7 @@ class TagController extends Controller
         $repository = $this->getDoctrine()->getRepository(Tag::class);
         $query = $repository->createQueryBuilder('t')
             ->select('t.id, t.name AS text')
-            ->orderBy('t.name')
+            ->orderBy('t.name', 'ASC')
             ->getQuery();
         $tags = $query->getResult();
 
