@@ -38,5 +38,11 @@ user:
 captcha: Captcha
 rememberme: Ricordami
 
-Tags: Tag
-tags.placeholder: Scegli uno o più tag...
+addresses: Indirizzi
+address:
+  street: Via
+  zipcode: CAP
+  city: Città
+
+Tags: Descriviti
+tags.placeholder: Scegli uno o più aggettivi...

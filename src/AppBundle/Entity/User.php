@@ -59,6 +59,12 @@ class User implements AdvancedUserInterface
     private $tags;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Address", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @Assert\Valid()
+     */
+    private $addresses;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $facebookId;
@@ -103,6 +109,7 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->addresses = new ArrayCollection();
     }
 
     /**
@@ -284,6 +291,27 @@ class User implements AdvancedUserInterface
     public function setTags($tags)
     {
         $this->tags = $tags;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    public function addAddress(Address $address)
+    {
+        if (!$this->addresses->contains($address)) {
+            $address->setUser($this);
+            $this->addresses->add($address);
+        }
+    }
+
+    public function removeAddress(Address $address)
+    {
+        $this->addresses->removeElement($address);
     }
 
     public function getRoles()

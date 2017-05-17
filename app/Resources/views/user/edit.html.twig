@@ -1,8 +1,23 @@
 {% extends 'base.html.twig' %}
+
+{% import _self as formMacros %}
+{% macro printAddressRow(addressForm) %}
+    <div class="col-sm-4 js-address-item">
+        <a href="#" class="js-address-remove pull-right">
+            <span class="fa fa-close"></span>
+        </a>
+        {{ form_errors(addressForm) }}
+
+        {{ form_row(addressForm.street) }}
+        {{ form_row(addressForm.zipcode) }}
+        {{ form_row(addressForm.city) }}
+    </div>
+{% endmacro %}
+
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-sm-12">
                 <h1>{{ 'user.edit'|trans }}</h1>
                 {{ form_start(form) }}
 
@@ -15,9 +30,61 @@
 
                 {{ form_row(form.tags) }}
 
+                <h3>{{ 'addresses'|trans }}</h3>
+                <div class="js-addresses row"
+                     data-prototype="{{ formMacros.printAddressRow(form.addresses.vars.prototype)|e('html_attr') }}"
+                     data-index="{{ form.addresses|length }}">
+                    {% for addressForm in form.addresses %}
+                        {{ formMacros.printAddressRow(addressForm) }}
+                    {% endfor %}
+                    {% if form.addresses|length == 0 %}
+                        <div style="display: none">{{ form_row(form.addresses) }}</div>
+                    {% endif %}
+
+                    <div class="col-sm-1 js-address-add">
+                    <a href="#">
+                        <span class="fa fa-2x fa-plus-circle" style="vertical-align: middle"></span>
+                    </a>
+                    </div>
+
+                    {#{{ form_row(form.addresses) }}#}
+                </div>
+
+                <div class="clearfix"></div>
                 <button type="submit" class="btn btn-primary" formnovalidate>Save</button>
                 {{ form_end(form) }}
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            var $wrapper = $('.js-addresses');
+            $wrapper.on('click', '.js-address-remove', function (e) {
+                e.preventDefault();
+                $(this).closest('.js-address-item')
+                    .fadeOut()
+                    .remove();
+            });
+
+            $wrapper.on('click', '.js-address-add', function (e) {
+                e.preventDefault();
+                // Get the data-prototype explained earlier
+                var prototype = $wrapper.data('prototype');
+                // get the new index
+                var index = $wrapper.data('index');
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                // increase the index with one for the next item
+                $wrapper.data('index', index + 1);
+                // Display the form in the page before the "new" link
+                $(this).before(newForm);
+            });
+        });
+
+    </script>
 {% endblock %}

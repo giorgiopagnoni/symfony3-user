@@ -4,7 +4,9 @@ namespace AppBundle\Form\User;
 
 use AppBundle\Entity\Tag;
 use AppBundle\Entity\User;
+use AppBundle\Form\AddressType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -38,6 +40,13 @@ class EditType extends AbstractType
             ],
             'placeholder' => 'tags.placeholder',
             'width' => '100%'
+        ]);
+
+        $builder->add('addresses', CollectionType::class, [
+            'entry_type' => AddressType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false,
         ]);
     }
 

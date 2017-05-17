@@ -38,5 +38,11 @@ user:
 captcha: "* Captcha"
 rememberme: Remember me
 
-Tags: Tags
-tags.placeholder: Choose one or more tags...
+Tags: Please describe yourself
+tags.placeholder: Choose one or more adjectives...
+
+addresses: Addresses
+address:
+  street: Street
+  zipcode: Zipcode
+  city: City
