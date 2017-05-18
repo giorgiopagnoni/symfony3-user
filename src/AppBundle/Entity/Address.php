@@ -50,7 +50,7 @@ class Address
     private $city;
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getId()
     {
@@ -74,7 +74,7 @@ class Address
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getZipcode()
     {
@@ -82,7 +82,7 @@ class Address
     }
 
     /**
-     * @param mixed $zipcode
+     * @param string $zipcode
      */
     public function setZipcode($zipcode)
     {
@@ -90,7 +90,7 @@ class Address
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCity()
     {
@@ -98,7 +98,7 @@ class Address
     }
 
     /**
-     * @param mixed $city
+     * @param string $city
      */
     public function setCity($city)
     {
