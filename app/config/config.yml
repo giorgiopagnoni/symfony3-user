@@ -111,3 +111,42 @@ knpu_oauth2_client:
             client_id: "%google_client_id%"
             client_secret: "%google_client_secret%"
             redirect_params: {}
+
+easy_admin:
+    entities:
+        User:
+          class: AppBundle\Entity\User
+          list:
+              fields:
+                - 'id'
+                - { property: 'email', type: 'email' }
+                - 'isActive'
+                - 'numberOfAddresses'
+                - 'createdAt'
+              sort: 'createdAt'
+          form:
+              fields:
+                - { property: 'email', type: 'email' }
+                - { property: 'plainPassword', type: 'password'}
+                - 'isActive'
+                - 'addresses'
+                - 'tags'
+          new:
+              form_options: { validation_groups: ['Default', 'Registration'] }
+              fields:
+                - '-addresses'
+                - '-tags'
+          edit:
+              form_options: { validation_groups: ['Default'] }
+              fields:
+                - { property: 'plainPassword', type: 'password', type_options: { required: false } }
+                - 'googleId'
+                - 'facebookId'
+        Tag:
+          class: AppBundle\Entity\Tag
+          list:
+              sort: ['name', 'ASC']
+        Address:
+          class: AppBundle\Entity\Address
+    list:
+        max-results: 5

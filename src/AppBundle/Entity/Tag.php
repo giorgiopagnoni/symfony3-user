@@ -55,4 +55,12 @@ class Tag
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getName();
+    }
+
 }

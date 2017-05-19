@@ -121,4 +121,11 @@ class Address
         $this->user = $user;
     }
 
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getZipcode() . ' ' . $this->getCity() . ' ' . $this->getStreet();
+    }
 }

@@ -113,6 +113,14 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Needed by the security system
      *
      * @return string
@@ -245,6 +253,23 @@ class User implements AdvancedUserInterface
         return $this->updatedAt;
     }
 
+    public function setCreatedAt(\DateTime $dateTime)
+    {
+        // for easy admin bundle
+    }
+    public function setUpdatedAt(\DateTime $dateTime)
+    {
+        // for easy admin bundle
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumberOfAddresses()
+    {
+        return $this->getAddresses()->count();
+    }
+
     /**
      * @return \DateTime
      */
@@ -294,7 +319,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return mixed
+     * @return ArrayCollection
      */
     public function getAddresses()
     {
@@ -383,6 +408,14 @@ class User implements AdvancedUserInterface
     public function isCredentialsNonExpired()
     {
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    function __toString()
+    {
+        return $this->getEmail();
     }
 
 }
