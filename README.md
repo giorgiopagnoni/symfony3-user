@@ -1,7 +1,7 @@
 symfony3-user
 =============
 
-A Symfony project created on July 8, 2016, 3:56 pm just for fun.
+A Symfony project created just for fun to try out a few things.
 
 - User registration (email/pwd, fb, google), login and password reset (custom, no FOSUserBundle)
 - Fun with doctrine: OneToMany and ManyToMany relations, one event subscriber
