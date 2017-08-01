@@ -7,3 +7,4 @@ A Symfony project created just for fun to try out a few things.
 - Fun with doctrine: OneToMany and ManyToMany relations, one event subscriber
 - Form mapping to entities, validation groups, custom constraint for entity validation
 - Fixtures with Alice
+- EasyAdmin
